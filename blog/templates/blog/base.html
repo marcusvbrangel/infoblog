@@ -22,13 +22,25 @@
 
     <div class="page-header">
 
-        <a href="{% url 'blog.views.post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        {% if user.is_authenticated %}
 
-        <h1><a href="/">Info Blog</a></h1>
+            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+
+            <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+
+            <p class="top-menu">Olá {{ user.username }}<small>(<a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a>)</small></p>
+
+        {% else %}
+
+            <a href="{% url 'django.contrib.auth.views.login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+
+        {% endif %}
+
+        <h1><a href="{% url 'blog.views.post_list' %}">Info Blog</a></h1>
 
     </div>
 
-    <div class="content container">
+    <div class="content">
 
         <div class="row">
 
